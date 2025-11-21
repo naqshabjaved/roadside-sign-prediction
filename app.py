@@ -5,7 +5,7 @@ from PIL import Image
 
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model('traffic_classifier.h5')
+    model = tf.keras.models.load_model('notebooks/traffic_classifier.h5')
     return model
 
 classes = { 
