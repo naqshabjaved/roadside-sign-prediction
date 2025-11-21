@@ -16,7 +16,7 @@ env/
 
 # --- Machine Learning Models & Data ---
 # Exclude large files to prevent git bloat
-*.h5
+#*.h5
 *.keras
 *.pt
 *.pth
