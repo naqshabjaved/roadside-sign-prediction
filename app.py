@@ -5,10 +5,13 @@ from PIL import Image
 
 @st.cache_resource
 def load_model():
+    # Ensure the path is correct relative to where you run 'streamlit run'
     model = tf.keras.models.load_model('notebooks/traffic_classifier.h5')
     return model
 
-classes = { 
+# 1. Define the labels by their ACTUAL Class ID (0-42)
+# We will fix the sorting order programmatically below.
+numeric_labels = { 
     0:'Speed limit (20km/h)',
     1:'Speed limit (30km/h)', 
     2:'Speed limit (50km/h)', 
@@ -54,6 +57,10 @@ classes = {
     42:'End no passing veh > 3.5 tons' 
 }
 
+sorted_class_ids = sorted([str(i) for i in numeric_labels.keys()])
+
+final_classes = {i: numeric_labels[int(k)] for i, k in enumerate(sorted_class_ids)}
+
 st.title("🚦 Traffic Sign Recognition System")
 st.write("Upload an image of a traffic sign, and the Deep Learning model will identify it.")
 
@@ -61,7 +68,7 @@ file = st.file_uploader("Please upload an image file", type=["jpg", "png", "jpeg
 
 if file is not None:
     image = Image.open(file)
-    st.image(image, caption='Uploaded Image', use_column_width=True)
+    st.image(image, caption='Uploaded Image', width=300) 
     
     if st.button("Classify Traffic Sign"):
         with st.spinner('Analyzing...'):
@@ -75,15 +82,18 @@ if file is not None:
                 if img_array.shape[-1] == 4:
                     img_array = img_array[..., :3]
                 
+                if len(img_array.shape) == 2:
+                     img_array = np.stack((img_array,)*3, axis=-1)
+
                 img_array = np.expand_dims(img_array, axis=0)
                 
                 img_array = img_array / 255.0
                 
                 prediction = model.predict(img_array)
-                predicted_class = np.argmax(prediction, axis=1)[0]
+                predicted_index = np.argmax(prediction, axis=1)[0]
                 confidence = np.max(prediction) * 100
                 
-                label = classes[predicted_class]
+                label = final_classes[predicted_index]
                 
                 st.success(f"Prediction: **{label}**")
                 st.info(f"Confidence: {confidence:.2f}%")
