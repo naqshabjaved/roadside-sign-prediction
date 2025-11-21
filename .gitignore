@@ -1,0 +1,37 @@
+# --- Python Internals ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual Environments ---
+# Good practice to cover multiple naming conventions
+venv/
+env/
+.env
+.venv/
+
+# --- Jupyter Notebooks ---
+# Essential if you use Jupyter/Colab
+.ipynb_checkpoints
+
+# --- Machine Learning Models & Data ---
+# Exclude large files to prevent git bloat
+*.h5
+*.keras
+*.pt
+*.pth
+*.onnx
+
+# --- Data Directories ---
+# specific data folder patterns
+data/
+datasets/
+*/data
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- IDE Settings (Optional) ---
+.vscode/
+.idea/
