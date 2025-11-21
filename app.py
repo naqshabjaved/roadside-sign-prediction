@@ -5,12 +5,9 @@ from PIL import Image
 
 @st.cache_resource
 def load_model():
-    # Ensure the path is correct relative to where you run 'streamlit run'
     model = tf.keras.models.load_model('notebooks/traffic_classifier.h5')
     return model
 
-# 1. Define the labels by their ACTUAL Class ID (0-42)
-# We will fix the sorting order programmatically below.
 numeric_labels = { 
     0:'Speed limit (20km/h)',
     1:'Speed limit (30km/h)', 
@@ -61,7 +58,7 @@ sorted_class_ids = sorted([str(i) for i in numeric_labels.keys()])
 
 final_classes = {i: numeric_labels[int(k)] for i, k in enumerate(sorted_class_ids)}
 
-st.title("🚦 Traffic Sign Recognition System")
+st.title("Traffic Sign Recognition System")
 st.write("Upload an image of a traffic sign, and the Deep Learning model will identify it.")
 
 file = st.file_uploader("Please upload an image file", type=["jpg", "png", "jpeg"])
