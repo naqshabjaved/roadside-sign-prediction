@@ -13,7 +13,7 @@ category.
 
 You can view and interact with the deployed Streamlit app here:
 
-**[Live App Link](https://Roadside-sign-recognition-naqshab.streamlit.app/)** 
+**[Live App Link](https://roadside-sign-prediction-naqshabjaved.streamlit.app/)** 
 ---
 
 ## 📌 Project Overview
